@@ -1,195 +1,30 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment, useEffect, useState } from "react";
+import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import {
+  Bars3Icon,
+  MagnifyingGlassIcon,
+  ShoppingBagIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
-const navigation = {
-  categories: [
-    {
-        id: 'engine',
-        name: 'Engine',
-        featured: [
-          {
-            name: 'Engine Kits',
-            href: '#',
-            imageSrc: 'https://images.oreillyauto.com/parts/img/large/edb/002086_v1.jpg',
-            imageAlt: 'Top End Edelbrock Performer RPM Kit - 2086',
-          },
-          {
-            name: 'Filters',
-            href: '#',
-            imageSrc: 'https://images.oreillyauto.com/parts/img/large/wix/57356.jpg',
-            imageAlt: 'Different types of engine filters.',
-          },
-      ],
-      sections: [
-        {
-          id: 'components',
-          name: 'Components & Parts',
-          items: [
-            { name: 'Belts & Hoses', href: '#' },
-            { name: 'Camshafts & Timing', href: '#' },
-            { name: 'Connecting Rods, Pistons & Rings', href: '#' },
-            { name: 'Cylinder Sleeve (Universal)', href: '#'},
-            { name: 'Engine Oil Drain Plug', href: '#' },
-            { name: 'Engine Gaskets', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'maintenance-care',
-          name: 'Maintenance & Care',
-          items: [
-            { name: 'Air Filters', href: '#' },
-            { name: 'Engine Oil', href: '#' },
-            { name: 'Oil Filters', href: '#' },
-            { name: 'Spark Plugs', href: '#' },
-            { name: 'Timing Belts/Chains', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'performance-upgrades',
-          name: 'Performance & Upgrades',
-          items: [
-            { name: 'Cold Air Intakes', href: '#' },
-            { name: 'Performance Chips & Tuners', href: '#' },
-            { name: 'Performance Exhaust Systems', href: '#' },
-            { name: 'Turbochargers & Superchargers', href: '#' },
-            { name: 'Upgraded Camshafts', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        }
-      ],
-    },
-    {
-      id: 'brakes',
-      name: 'Brakes',
-      featured: [
-        {
-          name: 'Brake Pads',
-          href: '#',
-          imageSrc: 'https://images.oreillyauto.com/parts/img/large/acd/171-1186_primary.jpg',
-          imageAlt: 'Different types of brake pads.',
-        },
-        {
-          name: 'Rotors',
-          href: '#',
-          imageSrc: 'https://images.oreillyauto.com/parts/img/large/bbr/orly_56825rgs_202_ang_primary.jpg',
-          imageAlt: 'Shiny brake rotors.',
-        },
-      ],
-      sections: [
-        {
-          id: 'components',
-          name: 'Components & Parts',
-          items: [
-            { name: 'Brake Calipers', href: '#' },
-            { name: 'Brake Pads', href: '#' },
-            { name: 'Brake Rotors', href: '#' },
-            { name: 'Brake Lines & Hoses', href: '#' },
-            { name: 'Master Cylinders', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'maintenance-care',
-          name: 'Maintenance & Care',
-          items: [
-            { name: 'Brake Cleaners', href: '#' },
-            { name: 'Brake Fluid', href: '#' },
-            { name: 'Brake Grease', href: '#' },
-            { name: 'Brake Bleeders', href: '#' },
-            { name: 'Brake Pads & Shoes Replacement', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'performance-upgrades',
-          name: 'Performance & Upgrades',
-          items: [
-            { name: 'Big Brake Kits', href: '#' },
-            { name: 'High-Performance Brake Pads', href: '#' },
-            { name: 'Performance Rotors', href: '#' },
-            { name: 'Stainless Steel Brake Lines', href: '#' },
-            { name: 'Upgraded Brake Calipers', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        }
-      ],
-    },    
-    {
-      id: 'transmission',
-      name: 'Transmission & Drivetrain',
-      featured: [
-        {
-          name: 'Transmission',
-          href: '#',
-          imageSrc: 'https://images.oreillyauto.com/parts/img/medium/ptq/nv3550_m150042_fro.jpg',
-          imageAlt: 'Different types of Transmission',
-        },
-        {
-          name: 'Drivetrain',
-          href: '#',
-          imageSrc: 'https://images.oreillyauto.com/parts/img/large/idd/vw-8169.jpg',
-          imageAlt: 'Shiny drivetrain',
-        },
-      ],
-      sections: [
-        {
-          id: 'components',
-          name: 'Components & Parts',
-          items: [
-            { name: 'Automatic Transmission Assembly', href: '#' },
-            { name: 'Axle Shafts', href: '#' },
-            { name: 'Clutch Kits', href: '#' },
-            { name: 'Differentials', href: '#' },
-            { name: 'Driveshafts', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'maintenance-care',
-          name: 'Maintenance & Care',
-          items: [
-            { name: 'Differential Fluids', href: '#' },
-            { name: 'Differential Gaskets & Seals', href: '#' },
-            { name: 'Drivetrain Lubricants', href: '#' },
-            { name: 'Transmission Filters', href: '#' },
-            { name: 'Transmission Flush', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'performance-upgrades',
-          name: 'Performance & Upgrades',
-          items: [
-            { name: 'High-Performance Transmission Coolers', href: '#' },
-            { name: 'Limited Slip Differentials', href: '#' },
-            { name: 'Performance Clutch Kits', href: '#' },
-            { name: 'Performance Driveshafts', href: '#' },
-            { name: 'Racing Transmissions', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        }
-      ],
-    },
-  ],
-  pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
-    { name: 'Support', href: '#' },
-  ],
-}
+import { Avatar, Button, Menu, MenuItem } from "@mui/material";
+import { deepPurple } from "@mui/material/colors";
+import navigation from "./navigationData";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
-  const [open, setOpen] = useState(false)
+export default function Navigation() {
+  const [open, setOpen] = useState(false);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openUserMenu = Boolean(anchorEl);
+  const jwt = localStorage.getItem("jwt");
+  // const navigate = useNavigate();
 
   return (
-    <div className="bg-white">
+    <div className="bg-white z-50 w-full relative">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -237,8 +72,10 @@ export default function Example() {
                           key={category.name}
                           className={({ selected }) =>
                             classNames(
-                              selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900',
-                              'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'
+                              selected
+                                ? "border-indigo-600 text-indigo-600"
+                                : "border-transparent text-gray-900",
+                              "flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
                             )
                           }
                         >
@@ -249,15 +86,31 @@ export default function Example() {
                   </div>
                   <Tab.Panels as={Fragment}>
                     {navigation.categories.map((category) => (
-                      <Tab.Panel key={category.name} className="space-y-10 px-4 pb-8 pt-10">
+                      <Tab.Panel
+                        key={category.name}
+                        className="space-y-10 px-4 pb-8 pt-10"
+                      >
                         <div className="grid grid-cols-2 gap-x-4">
                           {category.featured.map((item) => (
-                            <div key={item.name} className="group relative text-sm">
+                            <div
+                              key={item.name}
+                              className="group relative text-sm"
+                            >
                               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
+                                <img
+                                  src={item.imageSrc}
+                                  alt={item.imageAlt}
+                                  className="object-cover object-center"
+                                />
                               </div>
-                              <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                <span className="absolute inset-0 z-10" aria-hidden="true" />
+                              <a
+                                href={item.href}
+                                className="mt-6 block font-medium text-gray-900"
+                              >
+                                <span
+                                  className="absolute inset-0 z-10"
+                                  aria-hidden="true"
+                                />
                                 {item.name}
                               </a>
                               <p aria-hidden="true" className="mt-1">
@@ -268,7 +121,10 @@ export default function Example() {
                         </div>
                         {category.sections.map((section) => (
                           <div key={section.name}>
-                            <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
+                            <p
+                              id={`${category.id}-${section.id}-heading-mobile`}
+                              className="font-medium text-gray-900"
+                            >
                               {section.name}
                             </p>
                             <ul
@@ -278,7 +134,10 @@ export default function Example() {
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                  <a
+                                    href={item.href}
+                                    className="-m-2 block p-2 text-gray-500"
+                                  >
                                     {item.name}
                                   </a>
                                 </li>
@@ -294,7 +153,10 @@ export default function Example() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                      <a
+                        href={page.href}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
                         {page.name}
                       </a>
                     </div>
@@ -303,12 +165,18 @@ export default function Example() {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                    <a
+                      href="#"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
                       Sign in
                     </a>
                   </div>
                   <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                    <a
+                      href="#"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
                       Create account
                     </a>
                   </div>
@@ -321,7 +189,9 @@ export default function Example() {
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
-                    <span className="ml-3 block text-base font-medium text-gray-900">USD</span>
+                    <span className="ml-3 block text-base font-medium text-gray-900">
+                      USD
+                    </span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
@@ -336,7 +206,10 @@ export default function Example() {
           Get free delivery on orders over $100
         </p>
 
-        <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <nav
+          aria-label="Top"
+          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+        >
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
               <button
@@ -355,14 +228,14 @@ export default function Example() {
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src="https://corporate.oreillyauto.com/onlineapplication/images/logo.png"
                     alt=""
                   />
                 </a>
               </div>
 
               {/* Flyout menus */}
-              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-10">
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
@@ -372,9 +245,9 @@ export default function Example() {
                             <Popover.Button
                               className={classNames(
                                 open
-                                  ? 'border-indigo-600 text-indigo-600'
-                                  : 'border-transparent text-gray-700 hover:text-gray-800',
-                                'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
+                                  ? "border-indigo-600 text-indigo-600"
+                                  : "border-transparent text-gray-700 hover:text-gray-800",
+                                "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
                               )}
                             >
                               {category.name}
@@ -392,14 +265,20 @@ export default function Example() {
                           >
                             <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
                               {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                              <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
+                              <div
+                                className="absolute inset-0 top-1/2 bg-white shadow"
+                                aria-hidden="true"
+                              />
 
                               <div className="relative bg-white">
                                 <div className="mx-auto max-w-7xl px-8">
                                   <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                     <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                       {category.featured.map((item) => (
-                                        <div key={item.name} className="group relative text-base sm:text-sm">
+                                        <div
+                                          key={item.name}
+                                          className="group relative text-base sm:text-sm"
+                                        >
                                           <div className="h-[200px] aspect-h-1 aspect-w-1 overflow-hidden rounded-lg group-hover:opacity-75">
                                             <img
                                               src={item.imageSrc}
@@ -407,11 +286,20 @@ export default function Example() {
                                               className="object-contain object-center w-full h-full"
                                             />
                                           </div>
-                                          <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                            <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                          <a
+                                            href={item.href}
+                                            className="mt-6 block font-medium text-gray-900"
+                                          >
+                                            <span
+                                              className="absolute inset-0 z-10"
+                                              aria-hidden="true"
+                                            />
                                             {item.name}
                                           </a>
-                                          <p aria-hidden="true" className="mt-1">
+                                          <p
+                                            aria-hidden="true"
+                                            className="mt-1"
+                                          >
                                             Shop now
                                           </p>
                                         </div>
@@ -420,7 +308,10 @@ export default function Example() {
                                     <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                       {category.sections.map((section) => (
                                         <div key={section.name}>
-                                          <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                          <p
+                                            id={`${section.name}-heading`}
+                                            className="font-medium text-gray-900"
+                                          >
                                             {section.name}
                                           </p>
                                           <ul
@@ -429,8 +320,14 @@ export default function Example() {
                                             className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                           >
                                             {section.items.map((item) => (
-                                              <li key={item.name} className="flex">
-                                                <a href={item.href} className="hover:text-gray-800">
+                                              <li
+                                                key={item.name}
+                                                className="flex"
+                                              >
+                                                <a
+                                                  href={item.href}
+                                                  className="hover:text-gray-800"
+                                                >
                                                   {item.name}
                                                 </a>
                                               </li>
@@ -463,17 +360,26 @@ export default function Example() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <a
+                    href="#"
+                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                  >
                     Sign in
                   </a>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <a
+                    href="#"
+                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                  >
                     Create account
                   </a>
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
+                  <a
+                    href="#"
+                    className="flex items-center text-gray-700 hover:text-gray-800"
+                  >
                     <img
                       src="https://tailwindui.com/img/flags/flag-united-states.svg"
                       alt=""
@@ -488,7 +394,10 @@ export default function Example() {
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+                    <MagnifyingGlassIcon
+                      className="h-6 w-6"
+                      aria-hidden="true"
+                    />
                   </a>
                 </div>
 
@@ -499,7 +408,9 @@ export default function Example() {
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                      0
+                    </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>
@@ -509,5 +420,5 @@ export default function Example() {
         </nav>
       </header>
     </div>
-  )
+  );
 }
