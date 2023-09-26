@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import "../../../styles.css";
+import AddToCartBtn from "../../add-to-cart/AddToCartBtn";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -221,14 +222,7 @@ export default function ProductDetails() {
                     </button>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="items-center justify-center border-transparent px-8 py-2 text-base font-medium text-white"
-                  style={{ backgroundColor: "#067d35" }}
-                  aria-label="Add to Cart (opens modal)"
-                >
-                  ADD TO CART
-                </button>
+                <AddToCartBtn />
               </section>
             </div>
 

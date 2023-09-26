@@ -18,7 +18,7 @@ const items = mainCarouselData.map((item, index) => {
   const style = { height: "100%", width: "100%" };
   return (
     <img
-      className="cursor-pointer aspect-h-1 aspect-w-1 carousel-container"
+      className="cursor-pointer carousel-container"
       role="presentation"
       src={item.image}
       alt=""
@@ -29,12 +29,16 @@ const items = mainCarouselData.map((item, index) => {
 
 const MainCarousel = () => {
   return (
-    <div className="carousel-container -z-10">
+    <div
+      className="carousel-container -z-10"
+      style={{ width: "100vw", maxWidth: "100%" }}
+    >
       <AliceCarousel
         items={items}
         responsive={responsive}
         disableButtonsControls
-        autoPlayInterval={100}
+        autoPlay
+        autoPlayInterval={3000}
         infinite
       />
     </div>
@@ -42,34 +46,3 @@ const MainCarousel = () => {
 };
 
 export default MainCarousel;
-
-// import React from "react";
-// import Carousel from "react-material-ui-carousel";
-// import { Paper, Button, Link } from "@mui/material";
-// import { mainCarouselData } from "./MainCarouselData";
-
-// function MainCarousel() {
-//   return (
-//     <Carousel>
-//       {mainCarouselData.map((item, i) => (
-//         <CarouselItem key={i} item={item} />
-//       ))}
-//     </Carousel>
-//   );
-// }
-
-// function CarouselItem(props) {
-//   return (
-//     <Paper>
-//       <Link href={props.item.path}>
-//         <img
-//           src={props.item.image}
-//           alt=""
-//           style={{ width: "100%", height: "100%", zIndex: 1 }}
-//         />
-//       </Link>
-//     </Paper>
-//   );
-// }
-
-// export default MainCarousel;

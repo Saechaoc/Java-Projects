@@ -30,16 +30,6 @@ const testItem = {
 
 const HomePage = () => {
   return (
-    // <section>
-    //   <AliceCarousel>
-    //     <div className="item">
-    //       <HomeSectionCard product={testItem}></HomeSectionCard>
-    //     </div>
-    //     <div className="item">
-    //       <HomeSectionCard product={testItem}></HomeSectionCard>
-    //     </div>
-    //   </AliceCarousel>
-    // </section>
     <div>
       <MainCarousel />
       <div className="space-y-10 py-20 flex flex-col justify-center px-5 lg:px-10">

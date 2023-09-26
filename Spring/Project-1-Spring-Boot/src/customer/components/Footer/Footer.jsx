@@ -3,32 +3,9 @@ import React from "react";
 import { socialMedia } from "./SocialMedia";
 import { footerLinks } from "./FooterLinks";
 
-// export const Footer = () => {
-//   return (
-//     <div>
-//       <Grid
-//         className="bg-black text-white text center"
-//         container
-//         sx={{ bgcolor: "black", color: "white", py: 3 }}
-//       >
-//         <Grid item xs={12} sm={6} md={3} lg={1}>
-//           <Typography clasName="pb-5" variant="h6">
-//             Company
-//           </Typography>
-//                   <Button clasName="pb-5" variant="h6" gutterBottom>About</Button>
-//                   <Button clasName="pb-5" variant="h6" gutterBottom>Blog</Button>
-//                   <Button clasName="pb-5" variant="h6" gutterBottom>Press</Button>
-//                   <Button clasName="pb-5" variant="h6" gutterBottom>About</Button>
-//                   <Button clasName="pb-5" variant="h6" gutterBottom>About</Button>
-//         </Grid>
-//       </Grid>
-//     </div>
-//   );
-// };
-
 const Footer = () => {
   return (
-    <footer className="max-container p-20">
+    <footer className="bg-black text-white text center max-container p-20">
       <div className="flex justify-between items-start gap-20 flex-wrap max-lg:flex-col">
         <div className="flex flex-col items-start">
           <a href="/">
@@ -82,3 +59,26 @@ const Footer = () => {
 };
 
 export default Footer;
+
+// export const Footer = () => {
+//   return (
+//     <div>
+//       <Grid
+//         className="bg-black text-white text center"
+//         container
+//         sx={{ bgcolor: "black", color: "white", py: 3 }}
+//       >
+//         <Grid item xs={12} sm={6} md={3} lg={1}>
+//           <Typography clasName="pb-5" variant="h6">
+//             Company
+//           </Typography>
+//                   <Button clasName="pb-5" variant="h6" gutterBottom>About</Button>
+//                   <Button clasName="pb-5" variant="h6" gutterBottom>Blog</Button>
+//                   <Button clasName="pb-5" variant="h6" gutterBottom>Press</Button>
+//                   <Button clasName="pb-5" variant="h6" gutterBottom>About</Button>
+//                   <Button clasName="pb-5" variant="h6" gutterBottom>About</Button>
+//         </Grid>
+//       </Grid>
+//     </div>
+//   );
+// };

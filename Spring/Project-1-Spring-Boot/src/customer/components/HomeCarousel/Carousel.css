@@ -1,9 +1,11 @@
 .carousel-container {
     position: relative;
-    width: 100%;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 20px auto;
     overflow: hidden;
+    max-height: fit-content;
+    padding-left: 2rem;
+    padding-right:4rem;
   }
   
   .carousel-image {

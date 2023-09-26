@@ -1,7 +1,13 @@
 import React from "react";
 import CartItem from "./CartItem";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate("/checkout?step=0");
+  };
   return (
     <div>
       <div className="lg:grid grid-cols-3 lg:px-16 relative">
@@ -13,12 +19,12 @@ const Cart = () => {
         </div>
 
         {/*Order Summary*/}
-        <div className="px-5 top-0 h-[100vh] mt-6 mr-72">
-          <div className="border rounded-lg">
+        <div className="px-5 top-0 h-[100vh] mt-6 mr-40">
+          <div className="border pl-5 pr-5 rounded-lg">
             <button
               className="flex justify-center mt-2 mx-3 rounded-lg text-center"
               style={{
-                padding: "0.3rem 3.75rem",
+                padding: "0.3rem 6.5rem",
                 px: "2.75rem",
                 backgroundColor: "#067d35",
                 color: "white",
@@ -27,6 +33,7 @@ const Cart = () => {
               variant="contained"
               type="submit"
               aria-label="Checkout"
+              onClick={handleCheckout}
             >
               Place your order
             </button>

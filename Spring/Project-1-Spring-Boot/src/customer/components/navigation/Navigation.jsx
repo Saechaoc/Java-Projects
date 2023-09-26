@@ -9,19 +9,227 @@ import {
 
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-import navigation from "./navigationData";
+// import navigation from "./navigationData";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const navigation = {
+  categories: [
+    {
+      id: "engine",
+      name: "Engine",
+      featured: [
+        {
+          name: "Engine Kits",
+          href: "#",
+          imageSrc:
+            "https://images.oreillyauto.com/parts/img/large/edb/002086_v1.jpg",
+          imageAlt: "Top End Edelbrock Performer RPM Kit - 2086",
+        },
+        {
+          name: "Filters",
+          href: "#",
+          imageSrc:
+            "https://images.oreillyauto.com/parts/img/large/wix/57356.jpg",
+          imageAlt: "Different types of engine filters.",
+        },
+      ],
+      sections: [
+        {
+          id: "components",
+          name: "Components & Parts",
+          items: [
+            { name: "Belts & Hoses", href: "#" },
+            { name: "Camshafts & Timing", href: "#" },
+            { name: "Connecting Rods, Pistons & Rings", href: "#" },
+            { name: "Cylinder Sleeve (Universal)", href: "#" },
+            { name: "Engine Oil Drain Plug", href: "#" },
+            { name: "Engine Gaskets", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+        {
+          id: "maintenance-care",
+          name: "Maintenance & Care",
+          items: [
+            { name: "Air Filters", href: "#" },
+            { name: "Engine Oil", href: "#" },
+            { name: "Oil Filters", href: "#" },
+            { name: "Spark Plugs", href: "#" },
+            { name: "Timing Belts/Chains", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+        {
+          id: "performance-upgrades",
+          name: "Performance & Upgrades",
+          items: [
+            { name: "Cold Air Intakes", href: "#" },
+            { name: "Performance Chips & Tuners", href: "#" },
+            { name: "Performance Exhaust Systems", href: "#" },
+            { name: "Turbochargers & Superchargers", href: "#" },
+            { name: "Upgraded Camshafts", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "accessories",
+      name: "Accessories & Electronics",
+      featured: [
+        {
+          name: "Brake Pads",
+          href: "#",
+          imageSrc:
+            "https://images.oreillyauto.com/parts/img/large/acd/171-1186_primary.jpg",
+          imageAlt: "Different types of brake pads.",
+        },
+        {
+          name: "Rotors",
+          href: "#",
+          imageSrc:
+            "https://images.oreillyauto.com/parts/img/large/bbr/orly_56825rgs_202_ang_primary.jpg",
+          imageAlt: "Shiny brake rotors.",
+        },
+      ],
+      sections: [
+        {
+          id: "components",
+          name: "Components & Parts",
+          items: [
+            { name: "Brake Calipers", href: "#" },
+            { name: "Brake Pads", href: "#" },
+            { name: "Brake Rotors", href: "#" },
+            { name: "Brake Lines & Hoses", href: "#" },
+            { name: "Master Cylinders", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+        {
+          id: "maintenance-care",
+          name: "Maintenance & Care",
+          items: [
+            { name: "Brake Cleaners", href: "#" },
+            { name: "Brake Fluid", href: "#" },
+            { name: "Brake Grease", href: "#" },
+            { name: "Brake Bleeders", href: "#" },
+            { name: "Brake Pads & Shoes Replacement", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+        {
+          id: "performance-upgrades",
+          name: "Performance & Upgrades",
+          items: [
+            { name: "Big Brake Kits", href: "#" },
+            { name: "High-Performance Brake Pads", href: "#" },
+            { name: "Performance Rotors", href: "#" },
+            { name: "Stainless Steel Brake Lines", href: "#" },
+            { name: "Upgraded Brake Calipers", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "transmission",
+      name: "Transmission & Drivetrain",
+      featured: [
+        {
+          name: "Transmission",
+          href: "#",
+          imageSrc:
+            "https://images.oreillyauto.com/parts/img/medium/ptq/nv3550_m150042_fro.jpg",
+          imageAlt: "Different types of Transmission",
+        },
+        {
+          name: "Drivetrain",
+          href: "#",
+          imageSrc:
+            "https://images.oreillyauto.com/parts/img/large/idd/vw-8169.jpg",
+          imageAlt: "Shiny drivetrain",
+        },
+      ],
+      sections: [
+        {
+          id: "components",
+          name: "Components & Parts",
+          items: [
+            { name: "Automatic Transmission Assembly", href: "#" },
+            { name: "Axle Shafts", href: "#" },
+            { name: "Clutch Kits", href: "#" },
+            { name: "Differentials", href: "#" },
+            { name: "Driveshafts", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+        {
+          id: "maintenance-care",
+          name: "Maintenance & Care",
+          items: [
+            { name: "Differential Fluids", href: "#" },
+            { name: "Differential Gaskets & Seals", href: "#" },
+            { name: "Drivetrain Lubricants", href: "#" },
+            { name: "Transmission Filters", href: "#" },
+            { name: "Transmission Flush", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+        {
+          id: "performance-upgrades",
+          name: "Performance & Upgrades",
+          items: [
+            { name: "High-Performance Transmission Coolers", href: "#" },
+            { name: "Limited Slip Differentials", href: "#" },
+            { name: "Performance Clutch Kits", href: "#" },
+            { name: "Performance Driveshafts", href: "#" },
+            { name: "Racing Transmissions", href: "#" },
+            { name: "Browse All", href: "#" },
+          ],
+        },
+      ],
+    },
+  ],
+  // Make a backend-service to locate stores. Store all locations into mongodb/mysql retreive and test using postman/soapui
+  pages: [{ name: "Stores", href: "#" }],
+};
+
+//TODO: Create a sign in/ profile page and dashboard https://mui.com/material-ui/react-menu/ use Menu & MenuItem
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
-  // const navigate = useNavigate();
+
+  const pages = navigation.pages || {};
+  const pageKeys = Object.keys(pages);
+
+  const handleUserClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = (event) => {
+    setAnchorEl(null);
+  };
+
+  const handleOpen = () => {
+    setOpenAuthModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenAuthModal(false);
+  };
+
+  const handleCategoryClick = (category, section, item, close) => {
+    navigate(`/${category.id}/${section.id}/${item.name}`);
+    close();
+  };
 
   return (
     <div className="bg-white z-50 w-full relative">
@@ -206,10 +414,7 @@ export default function Navigation() {
           Get free delivery on orders over $100
         </p>
 
-        <nav
-          aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
+        <nav aria-label="Top" className="mx-auto w-full px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
               <button
@@ -224,8 +429,8 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="#">
-                  <span className="sr-only">Your Company</span>
+                <a href="/">
+                  <span className="sr-only">O'Reilly Auto Clone</span>
                   <img
                     className="h-8 w-auto"
                     src="https://corporate.oreillyauto.com/onlineapplication/images/logo.png"
@@ -236,10 +441,11 @@ export default function Navigation() {
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-10">
+                {/* Navigation Bar Title Elements */}
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
-                      {({ open }) => (
+                      {({ open, close }) => (
                         <>
                           <div className="relative flex">
                             <Popover.Button
@@ -271,7 +477,7 @@ export default function Navigation() {
                               />
 
                               <div className="relative bg-white">
-                                <div className="mx-auto max-w-7xl px-8">
+                                <div className="mx-auto w-full relative px-32">
                                   <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                     <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                       {category.featured.map((item) => (
@@ -324,12 +530,26 @@ export default function Navigation() {
                                                 key={item.name}
                                                 className="flex"
                                               >
-                                                <a
+                                                <p
+                                                  onClick={() =>
+                                                    handleCategoryClick(
+                                                      category,
+                                                      section,
+                                                      item,
+                                                      close
+                                                    )
+                                                  }
+                                                  className="cursor-pointer hover:text-gray-800"
+                                                >
+                                                  {item.name}
+                                                </p>
+
+                                                {/* <a
                                                   href={item.href}
                                                   className="hover:text-gray-800"
                                                 >
                                                   {item.name}
-                                                </a>
+                                                </a> */}
                                               </li>
                                             ))}
                                           </ul>
@@ -346,15 +566,16 @@ export default function Navigation() {
                     </Popover>
                   ))}
 
-                  {navigation.pages.map((page) => (
+                  {pageKeys.map((pageKey) => {
+                    const page = pages[pageKey]; // Corrected indentation and added semicolon
                     <a
                       key={page.name}
                       href={page.href}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
-                  ))}
+                    </a>;
+                  })}
                 </div>
               </Popover.Group>
 
@@ -401,9 +622,9 @@ export default function Navigation() {
                   </a>
                 </div>
 
-                {/* Cart */}
+                {/* Cart - need to figure out how to manage either local or global state of shopping cart*/}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <a href="/cart" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
